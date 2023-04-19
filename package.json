@@ -1,0 +1,8 @@
+{
+  "name": "itl-helper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "zexyu",
+  "license": "MIT",
+  "private": true
+}
