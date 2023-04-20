@@ -29,22 +29,24 @@ function getEntrantScore(entrant: Entrant, leaderboardEntry: Leaderboard) {
   return rp + tp;
 }
 
-function getPeerChartScore(score: TopScore, peerCharts: TopScore[][], localRank: number, totalCharts: number) {
+function getCombinedPeerScore(score: TopScore, allPeerScores: TopScore[][]) {
   let sum = 0;
   const title = chartMap.get(score.chartHash).title;
-  console.log(title, "Local player rank is: ", localRank, "/", totalCharts);
-  const localScore = (totalCharts - localRank);
+  console.log(title, "Local player rank is: ", score.points, "/", chartMap.get(score.chartHash).points);
+  const localScore = score.points / chartMap.get(score.chartHash).points;
   console.log(title, "Local player scoring: ", localScore);
-  peerCharts.forEach((peerCharts, i) => {
-    const peerRank = peerCharts.findIndex((c: TopScore) => c.chartHash === score.chartHash);
-    console.log(title, "  Peer", i, "rank is ", peerRank, "/", totalCharts);
-    if (peerRank > 0) {
-      const peerScore = (totalCharts - peerRank);
+  let entries = 0;
+  allPeerScores.forEach((peerScores, i) => {
+    const peerTopScore = peerScores.find((c: TopScore) => c.chartHash === score.chartHash);
+    if (peerTopScore) {
+      console.log(title, "  Peer", i, "score is ", peerTopScore.points, "/", chartMap.get(score.chartHash).points);
+      const peerScore = peerTopScore.points / chartMap.get(score.chartHash).points;
       console.log(title, "  adding to peer score ", peerScore);
       sum += peerScore;
+      entries++;
     }
   })
-  const avgPeerScore = sum / peerCharts.length;
+  const avgPeerScore = sum / entries;
   console.log(title, "  total average is ", avgPeerScore);
   return avgPeerScore - localScore;
 }
@@ -64,12 +66,12 @@ fetchEntrant(806).then((entrantResponse: EntrantResponse) => {
     const peerEntries = entrantScores.sort((a, b) => a.score - b.score).slice(1, 10);
 
     // fetch each of those entries' entrant objects so we have all their scores
-    fetchPeerScores(peerEntries).then(peerCharts => {
+    fetchPeerScores(peerEntries).then(allPeerScores => {
 
       // look at each chart and calculate its peer score
       const chartScores = Array<ChartScore>();
       localSortedTopScores.forEach((topScore, i) => {
-        const peerScore = getPeerChartScore(topScore, peerCharts, i, charts.length);
+        const peerScore = getCombinedPeerScore(topScore, allPeerScores);
         chartScores.push({ topScore, score: peerScore })
       });
 
