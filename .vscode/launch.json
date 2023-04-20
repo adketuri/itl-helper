@@ -5,12 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "outputCapture": "std",
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\index.ts",
+      "program": "${workspaceFolder}/index.ts",
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]

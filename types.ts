@@ -183,3 +183,16 @@ export enum Sex {
   Male = "Male",
   Unspecified = "Unspecified",
 }
+
+
+//----
+
+export interface EntrantScore {
+  entrant: Leaderboard;
+  score: number;
+}
+
+export interface ChartScore {
+  topScore: TopScore;
+  score: number;
+}
