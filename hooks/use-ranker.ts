@@ -3,14 +3,6 @@ import { Chart, ChartScore, Entrant, EntrantResponse, EntrantScore, Leaderboard,
 
 const chartMap = new Map<string, Chart>();
 const apiUrl = "https://itl2023.groovestats.com/api/entrant";
-const options = {
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  },
-}
-
 
 async function fetchEntrant(id: number) {
   console.log(`Fetching Entrant ${id}....`);
@@ -22,13 +14,13 @@ async function fetchEntrant(id: number) {
 
 async function fetchLeaderboard() {
   console.log("Fetching Leaderboard....");
-  const response = await fetch(`${apiUrl}/leaderboard`, options);
+  const response = await fetch(`${apiUrl}/leaderboard`);
   const data = await response.json();
   return data;
 }
 
 async function fetchPeerScores(entrants: EntrantScore[]) {
-  console.log("Fetching peers...", options);
+  console.log("Fetching peers...");
   const peers: EntrantResponse[] = await Promise.all(entrants.map((entrantScore) => fetchEntrant(entrantScore.entrant.id)));
   return peers.map(peer => peer.data.topScores.sort((s1, s2) => s2.points - s1.points));
 }
