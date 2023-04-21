@@ -13,7 +13,7 @@ export const MeterSlider: FC<MeterSliderProps> = ({ minMeter, setMinMeter }) => 
   return (<Box pt={6} pb={2}>
     <Text>Minimum Difficulty</Text>
     <Slider aria-label='Minimum Difficulty' value={minMeter} onChange={setMinMeter} min={sliderValues[0]} max={sliderValues[sliderValues.length - 1]}>
-      {sliderValues.map(val => <SliderMark key={val} value={val} mt={2} >{val}</SliderMark>)}
+      {sliderValues.map(val => <SliderMark key={val} value={val} mt={2} ml={-1}>{val}</SliderMark>)}
       <SliderTrack >
         <SliderFilledTrack />
       </SliderTrack>

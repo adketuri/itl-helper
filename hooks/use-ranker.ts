@@ -93,6 +93,7 @@ export interface Ranker {
   chartMap?: Map<string, Chart>;
   leaderboard?: LeaderboardResponse;
   results?: ChartScore[];
+  clearResults: () => void;
 }
 
 export const useRanker: (arg?: number) => Ranker = (entrantId?: number) => {
@@ -103,16 +104,14 @@ export const useRanker: (arg?: number) => Ranker = (entrantId?: number) => {
   const [chartMap, setChartMap] = useState<Map<string, Chart> | undefined>();
   useEffect(() => {
     if (!entrantId || !leaderboard) return;
-    //calculate(entrantId, setResults, setChartMap, leaderboard);
+    calculate(entrantId, setResults, setChartMap, leaderboard);
   }, [entrantId, leaderboard]);
 
   useEffect(() => {
     fetchLeaderboard().then(setLeaderboard);
   }, [])
 
-
-
-  return { results, chartMap, leaderboard }
+  return { results, chartMap, leaderboard, clearResults: () => setResults(undefined) }
 }
 
 

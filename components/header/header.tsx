@@ -24,12 +24,12 @@ export const Header = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex bg={bg} py={8} direction={{ base: "column", md: "row" }}>
-        <Container maxW="container.lg">
+        <Container maxW="container.md">
           <Flex>
             <HeaderBox title="Points!" titleRight={<ColorModeButton />}>
               <Text mt={2}>Discover which songs you should be playing in <Link variant="outgoing" as={NextLink} href={"https://itl2023.groovestats.com/"}>
                 ITL 2023
-              </Link>.</Text>
+              </Link>. Songs are ranked by your score relative to similarly-ranking players.</Text>
             </HeaderBox>
           </Flex>
         </Container>

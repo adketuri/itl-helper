@@ -9,7 +9,7 @@ export const RankView: FC = () => {
 
   const [minMeter, setMinMeter] = useState(7);
   const [userId, setUserId] = useState<number | undefined>();
-  const { results, chartMap, leaderboard } = useRanker(userId);
+  const { results, chartMap, leaderboard, clearResults } = useRanker(userId);
 
   const resultSegment = results?.filter(entry => {
     const chart = chartMap?.get(entry.topScore.chartHash);
@@ -17,14 +17,20 @@ export const RankView: FC = () => {
     return chart.meter >= minMeter
   }).slice(0, 5);
 
-  return (<Container maxW="container.lg" mt={5}>
+  return (<Container maxW="container.md" mt={5}>
 
-    <FormControl w="400px">
-      <UserSelector leaderboard={leaderboard} setUserId={setUserId} />
+    <FormControl>
+      <UserSelector leaderboard={leaderboard} setUserId={(id) => {
+        clearResults();
+        setUserId(id)
+      }} />
       <MeterSlider minMeter={minMeter} setMinMeter={setMinMeter} />
     </FormControl>
 
-    {userId && !results && <Spinner />}
+    {userId && !results && <Flex height="200px">
+      <Spinner m="auto" size="xl" />
+    </Flex>}
+
     <Box mt={10}>
       {resultSegment?.map((entry, i) => <ChartView key={entry.topScore.id} rank={i + 1} chartMap={chartMap} entry={entry} />)}
     </Box>
