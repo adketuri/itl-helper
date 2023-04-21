@@ -7,7 +7,6 @@ export interface ChartViewProps {
   chartMap?: Map<string, Chart>;
   entry: ChartScore;
 }
-//chartResults.forEach((entry, i) => console.log((i + 1), chartMap.get(entry.topScore.chartHash)?.title, chartMap.get(entry.topScore.chartHash)?.meter, "Score:", entry.score));
 export const ChartView: FC<ChartViewProps> = ({ rank, chartMap, entry }) => {
 
   const chart = chartMap?.get(entry.topScore.chartHash);
