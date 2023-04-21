@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Chart, ChartScore, Entrant, EntrantResponse, EntrantScore, Leaderboard, LeaderboardResponse, TopScore } from "../types";
 
-const chartMap = new Map<string, Chart>();
 // const apiUrl = "https://itl2023.groovestats.com/api/entrant";
-// const apiUrl = "http://localhost:3000/api/entrant"
-const apiUrl = "https://itl.zexyu.com/api/entrant";
+const serverUrl = process.env.NODE_ENV === "production" ? "https://itl.zexyu.com" : "http://localhost:3000"
+const apiUrl = serverUrl + "/api/entrant";
+const chartMap = new Map<string, Chart>();
 
 async function fetchEntrant(id: number) {
   console.log(`Fetching Entrant ${id}....`);

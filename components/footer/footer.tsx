@@ -8,9 +8,9 @@ export const Footer = () => {
       <Flex bg={bg} py={8} direction={{ base: "column", md: "row" }}>
         <Container maxW="container.md">
           <Flex direction="column">
-            <Text variant="sub">by <Link variant="outgoing" as={NextLink} href="https://twitter.com/zexyu">@zexyu</Link></Text>
+            <Text variant="sub">by zexyu</Text>
             <Text variant="sub"><Link variant="outgoing" as={NextLink} href={"https://ko-fi.com/zexyu"}>
-              Support Me
+              Donate
             </Link></Text>
           </Flex>
         </Container>

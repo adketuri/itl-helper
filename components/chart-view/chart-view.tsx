@@ -26,8 +26,10 @@ export const ChartView: FC<ChartViewProps> = ({ rank, chartMap, entry }) => {
         <Text>{chart.title}</Text>
         <Text opacity={0.7}>{chart.artist}</Text>
       </Box>
-      <Text my="auto">{entry.topScore.points} / {chart.points} ({formatEx(entry.topScore.ex)}%)</Text>
-      <Flex my="auto" w="100px"><Tag size="sm" ml="auto">{chart.difficulty} {chart.meter}</Tag></Flex>
+      <Flex direction={["column-reverse", "row"]}>
+        <Text my="auto" fontSize={["12px", "16px"]}>{entry.topScore.points} / {chart.points} ({formatEx(entry.topScore.ex)}%)</Text>
+        <Flex my="auto" width={[null, "110px"]}><Tag size="sm" ml="auto">{chart.difficulty} {chart.meter}</Tag></Flex>
+      </Flex>
     </Flex>
       <Divider /></>)
 
