@@ -96,6 +96,7 @@ export interface Ranker {
   leaderboard?: LeaderboardResponse;
   results?: ChartScore[];
   clearResults: () => void;
+  removeResult: (topScoreId: number) => void;
 }
 
 export const useRanker: (arg?: number) => Ranker = (entrantId?: number) => {
@@ -113,7 +114,13 @@ export const useRanker: (arg?: number) => Ranker = (entrantId?: number) => {
     fetchLeaderboard().then(setLeaderboard);
   }, [])
 
-  return { results, chartMap, leaderboard, clearResults: () => setResults(undefined) }
+  return {
+    results,
+    chartMap,
+    leaderboard,
+    clearResults: () => setResults(undefined),
+    removeResult: (id: number) => setResults(results => results?.filter(r => r.topScore.id !== id))
+  }
 }
 
 

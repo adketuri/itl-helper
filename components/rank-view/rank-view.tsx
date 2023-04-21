@@ -9,7 +9,7 @@ export const RankView: FC = () => {
 
   const [minMeter, setMinMeter] = useState(7);
   const [userId, setUserId] = useState<number | undefined>();
-  const { results, chartMap, leaderboard, clearResults } = useRanker(userId);
+  const { results, chartMap, leaderboard, clearResults, removeResult } = useRanker(userId);
 
   const resultSegment = results?.filter(entry => {
     const chart = chartMap?.get(entry.topScore.chartHash);
@@ -32,7 +32,7 @@ export const RankView: FC = () => {
     </Flex>}
 
     <Box mt={10}>
-      {resultSegment?.map((entry, i) => <ChartView key={entry.topScore.id} rank={i + 1} chartMap={chartMap} entry={entry} />)}
+      {resultSegment?.map((entry, i) => <ChartView onDelete={removeResult} key={entry.topScore.id} rank={i + 1} chartMap={chartMap} entry={entry} />)}
     </Box>
 
   </Container>);
