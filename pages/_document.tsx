@@ -7,16 +7,12 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta property="og:url" content="https://itl.zexyu.com" />
-        <meta property="og:title" content="ITL HELPER" />
+        <meta property="og:title" content="Points!" />
         <meta
           property="og:description"
-          content="ITL Helper"
+          content="Discover which songs you should be playing in ITL 2023. Songs are ranked by your score relative to similarly-ranking players."
         />
-        <meta
-          property="og:image"
-          content="https://andrew.alcuria.net/images/me.png"
-        />
-        <meta property="og:site_name" content="ITL HELPER" />
+        <meta property="og:site_name" content="Points!" />
       </Head>
 
       <body>

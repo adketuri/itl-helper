@@ -17,7 +17,7 @@ export const RankView: FC = () => {
     return chart.meter >= minMeter
   }).slice(0, 5);
 
-  return (<Container maxW="container.md" mt={5}>
+  return (<Container maxW="container.md" flex={1} mt={5}>
 
     <FormControl>
       <UserSelector leaderboard={leaderboard} setUserId={(id) => {
