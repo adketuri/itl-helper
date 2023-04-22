@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Tag, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import { Chart, ChartScore } from "../../types";
 import SwipeToDelete from 'react-swipe-to-delete-ios'
 
@@ -16,14 +16,15 @@ function formatEx(ex: number): string {
 
 export const ChartView: FC<ChartViewProps> = ({ rank, chartMap, entry, onDelete }) => {
 
+  const bg = useColorModeValue("white", "gray.800");
+  const height = useBreakpointValue({ base: 55, md: 65 })
+
   const chart = chartMap?.get(entry.topScore.chartHash);
   if (!chart) return <>No chart</>
 
-
-
   return (
-    <SwipeToDelete onDelete={() => onDelete(entry.topScore.id)} height={65}>
-      <Box bg="gray.800" height={65}>
+    <SwipeToDelete onDelete={() => onDelete(entry.topScore.id)} height={height}>
+      <Box bg={bg} height={height}>
         <Flex py={2}  >
           <Text my="auto" mr={5} fontSize={14}>{rank}</Text>
           <Box flex={1}>

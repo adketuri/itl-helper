@@ -12,11 +12,11 @@ More specifically, this tool does the following:
 
 This is deployed to [itl.zexyu.com](https://itl.zexyu.com). Drop your username in the field and give it a few moments to do its thing.
 
-You can filter by a minimum song rating and swipe left to delete suggestions.
+This doesn't factor in whether or not upscoring the suggestions will actually award ranking points. As a compromise, you can filter by a minimum song rating and swipe left to delete suggestions.
 
 # Running locally
 
-This is a standard React/Next.js application. You'll need a node environment. Clone and install dependencies:
+This is a standard React/Next.js application. You'll need a node environment configured to run this. Clone and install dependencies:
 
 ```bash
 git clone git@github.com:adketuri/itl-helper.git

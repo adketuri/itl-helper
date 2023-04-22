@@ -8,7 +8,7 @@ export const Footer = () => {
   const bg = useColorModeValue("gray.100", "gray.900");
   return (
     <>
-      <Flex bg={bg} py={8} direction={{ base: "column", md: "row" }}>
+      <Flex bg={bg} py={4} mt={8} direction={{ base: "column", md: "row" }}>
         <Container maxW="container.md">
           <Flex>
             <Flex direction="column">
