@@ -10,7 +10,7 @@ export default function Document() {
         <meta property="og:title" content="Points!" />
         <meta
           property="og:description"
-          content="Discover which songs you should be playing in ITL 2023. Songs are ranked by your score relative to similarly-ranking players."
+          content="Discover which songs you should be playing in ITL 2023. Songs are ranked by your score relative to similarly-ranked players."
         />
         <meta property="og:site_name" content="Points!" />
       </Head>

@@ -15,7 +15,7 @@ export const Header = () => {
   return (
     <>
       <Head>
-        <title>ITL</title>
+        <title>Points!</title>
         <meta
           name="description"
           content="Points!"
@@ -29,7 +29,7 @@ export const Header = () => {
             <HeaderBox title="Points!" titleRight={<ColorModeButton />}>
               <Text mt={2}>Discover which songs you should be playing in <Link variant="outgoing" as={NextLink} href={"https://itl2023.groovestats.com/"}>
                 ITL 2023
-              </Link>. Songs are ranked by your score relative to similarly-ranking players.</Text>
+              </Link>. Songs are ranked by your score relative to similarly-ranked players.</Text>
             </HeaderBox>
           </Flex>
         </Container>
