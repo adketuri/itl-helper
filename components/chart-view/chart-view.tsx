@@ -17,7 +17,7 @@ function formatEx(ex: number): string {
 export const ChartView: FC<ChartViewProps> = ({ rank, chartMap, entry, onDelete }) => {
 
   const bg = useColorModeValue("white", "gray.800");
-  const height = useBreakpointValue({ base: 55, md: 65 })
+  const height = useBreakpointValue({ base: 59, sm: 65 })
 
   const chart = chartMap?.get(entry.topScore.chartHash);
   if (!chart) return <>No chart</>
