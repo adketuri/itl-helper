@@ -28,8 +28,8 @@ async function fetchPeerScores(entrants: EntrantScore[]) {
 }
 
 function getEntrantScore(entrant: Entrant, leaderboardEntry: Leaderboard) {
-  const rp = Math.abs(entrant.rankingPoints - leaderboardEntry.rankingPoints);
-  const tp = (Math.abs(entrant.totalPoints - leaderboardEntry.totalPoints)) / 5;
+  const rp = entrant.rankingPoints - leaderboardEntry.rankingPoints;
+  const tp = (entrant.totalPoints - leaderboardEntry.totalPoints) / 20;
   return rp + tp;
 }
 
@@ -67,9 +67,9 @@ const calculate = (entrantId: number, setResults: (arg: ChartScore[]) => void, s
 
     // localSortedTopScores.forEach((c) => console.log(chartMap.get(c.chartHash).title, c.points));
 
-    // find peers from the leaderboard
+    // find peers from the leaderboard, first add to an entrantScores array, then find 10 players with a score lower than yours
     leaderboardResponse.data.leaderboard.forEach((leaderboardEntry) => entrantScores.push({ entrant: leaderboardEntry, score: getEntrantScore(entrant, leaderboardEntry) }))
-    const peerEntries = entrantScores.sort((a, b) => a.score - b.score).slice(1, 10);
+    const peerEntries = entrantScores.sort((a, b) => a.score - b.score).filter(e => e.score > 0).slice(0, 10);
 
     // fetch each of those entries' entrant objects so we have all their scores
     fetchPeerScores(peerEntries).then(allPeerScores => {
@@ -82,7 +82,7 @@ const calculate = (entrantId: number, setResults: (arg: ChartScore[]) => void, s
       });
 
       // sort and present the total
-      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).slice(0, 10);
+      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).slice(0, 20);
       console.log("Here are the results:");
       chartResults.forEach((entry, i) => console.log((i + 1), chartMap.get(entry.topScore.chartHash)?.title, chartMap.get(entry.topScore.chartHash)?.meter, "Score:", entry.score));
       setResults(chartResults);
