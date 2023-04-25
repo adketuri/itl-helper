@@ -6,6 +6,14 @@ const serverUrl = process.env.NODE_ENV === "production" ? "https://itl.zexyu.com
 const apiUrl = serverUrl + "/api/entrant";
 const chartMap = new Map<string, Chart>();
 
+async function fetchAllEntrants(entrants: EntrantScore[]) {
+  const results: EntrantResponse[] = [];
+  for (const e of entrants) {
+    results.push(await fetchEntrant(e.entrant.id))
+  }
+  return results
+}
+
 async function fetchEntrant(id: number) {
   console.log(`Fetching Entrant ${id}....`);
 
@@ -23,7 +31,7 @@ async function fetchLeaderboard() {
 
 async function fetchPeerScores(entrants: EntrantScore[]) {
   console.log("Fetching peers...");
-  const peers: EntrantResponse[] = await Promise.all(entrants.map((entrantScore) => fetchEntrant(entrantScore.entrant.id)));
+  const peers: EntrantResponse[] = await fetchAllEntrants(entrants);
   return peers.map(peer => peer.data.topScores.sort((s1, s2) => s2.points - s1.points));
 }
 
@@ -85,7 +93,7 @@ const calculate = (entrantId: number, setResults: (arg: ChartScore[]) => void, s
       });
 
       // sort and present the total
-      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).filter(c => !chartMap.has(c.topScore.chartHash)).slice(0, 20);
+      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).filter(c => chartMap.has(c.topScore.chartHash)).slice(0, 20);
       console.log("Here are the results:");
       chartResults.forEach((entry, i) => console.log((i + 1), chartMap.get(entry.topScore.chartHash)?.title, chartMap.get(entry.topScore.chartHash)?.meter, "Score:", entry.score));
       setResults(chartResults);
