@@ -36,7 +36,10 @@ function getEntrantScore(entrant: Entrant, leaderboardEntry: Leaderboard) {
 function getCombinedPeerScore(score: TopScore, allPeerScores: TopScore[][]) {
   let sum = 0;
   const chart = chartMap.get(score.chartHash);
-  if (!chart) throw (new Error("Chart not found"));
+  if (!chart) {
+    console.error("Chart not found, skipping: ", score.chartHash);
+    return -100000;
+  }
   const title = chart.title;
   console.log(title, "Local player rank is: ", score.points, "/", chart.points);
   const localScore = score.points / chart.points;
@@ -82,7 +85,7 @@ const calculate = (entrantId: number, setResults: (arg: ChartScore[]) => void, s
       });
 
       // sort and present the total
-      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).slice(0, 20);
+      const chartResults = chartScores.sort((c1, c2) => c2.score - c1.score).filter(c => !chartMap.has(c.topScore.chartHash)).slice(0, 20);
       console.log("Here are the results:");
       chartResults.forEach((entry, i) => console.log((i + 1), chartMap.get(entry.topScore.chartHash)?.title, chartMap.get(entry.topScore.chartHash)?.meter, "Score:", entry.score));
       setResults(chartResults);
